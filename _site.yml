@@ -7,7 +7,7 @@ navbar:
     - text: "Learn R"
       menu:
       - text: "Fundamentals of R: Part 1"
-        href: intro1.html
+        href: Intro1.html
     - text: "About"
       href: about.html
 
