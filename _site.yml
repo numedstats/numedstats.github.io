@@ -14,8 +14,8 @@ navbar:
 # Need to install package "shiny" for multistep dropdown lists
 Output:
   html_document:
-  theme: cosmo
-  highlight: textmate
+    theme: cosmo
+    highlight: textmate
   css: styles.css
 
 output_dir: "." 
