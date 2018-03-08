@@ -1,0 +1,22 @@
+name: "my-website"
+navbar:
+  title: "NUMed Stats"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Learn R"
+      menu:
+      - text: "Fundamentals of R: Part 1"
+        href: intro1.html
+    - text: "About"
+      href: about.html
+
+# Need to install package "shiny" for multistep dropdown lists
+Output:
+  html_document:
+  theme: cosmo
+  highlight: textmate
+  css: styles.css
+
+output_dir: "." 
+# this will create the website under the main directory

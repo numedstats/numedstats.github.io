@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Fundementals of R language</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NUMed Stats</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Learn R
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro1.html">Fundamentals of R: Part 1</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Fundementals of R language</h1>
+
+</div>
+
+
+<p>This course will cover the basic R functions.</p>
+<div id="arithmetic-with-r" class="section level1">
+<h1>Arithmetic with R</h1>
+<p>In its most basic form, R can be used as a simple calculator. Consider the following arithmetic operators:</p>
+<ul>
+<li>Addition: +</li>
+<li>Subtraction: -</li>
+<li>Multiplication: *</li>
+<li>Division: /</li>
+<li>Exponentiation: ^ <em>(shift + 6)</em></li>
+<li>Modulo: %%</li>
+</ul>
+<div id="exponentiation-and-modulo" class="section level3">
+<h3>Exponentiation and Modulo</h3>
+<p>The <strong>exponentiation operator</strong> raises the number to its left to the power of the number to its right: for example <span class="math inline">\(3^2 = 9\)</span></p>
+<p>The <strong>modulo</strong> returns the remainder of the division of the number to the left by the number on its right, for example 5 modulo 3 or 5 %% 3 is 2. With this knowledge, follow the instructions below to complete the exercise.</p>
+<div id="examples" class="section level4">
+<h4>Examples:</h4>
+<pre class="r"><code>2 * 8</code></pre>
+<pre><code>## [1] 16</code></pre>
+<pre class="r"><code>9 - 2</code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="r"><code>17 * 23</code></pre>
+<pre><code>## [1] 391</code></pre>
+<pre class="r"><code>14 / 2 </code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="r"><code>3^2</code></pre>
+<pre><code>## [1] 9</code></pre>
+<pre class="r"><code>8%%2</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>8%%3</code></pre>
+<pre><code>## [1] 2</code></pre>
+</div>
+</div>
+</div>
+<div id="basic-data-types-in-r" class="section level1">
+<h1>Basic data types in R</h1>
+<p>R works with numerous data types. Some of the most basic types to get started are:</p>
+<ul>
+<li>Decimals values like 4.5 are called <strong>numerics</strong>.</li>
+<li>Natural numbers like 4 are called <strong>integers</strong>.</li>
+<li>Boolean values (TRUE or FALSE) are called <strong>logical</strong>.</li>
+<li>Text (or string) values are called <strong>characters</strong>.</li>
+</ul>
+</div>
+<div id="variable" class="section level1">
+<h1>Variable</h1>
+<p>A basic concept in (statistical) programming is called a variable.</p>
+<p>A <strong>variable</strong> allows you to <em>store</em> a value (e.g. 4) or an object (e.g. a function description) in R. You can then later use this variable’s name to easily access the value or the object that is stored within this variable.</p>
+<pre class="r"><code>my_variable = 4 # storing the value 4
+my_variable</code></pre>
+<pre><code>## [1] 4</code></pre>
+</div>
+<div id="vector" class="section level1">
+<h1>Vector</h1>
+<p>Vectors are one-dimension arrays that can hold numeric data, character data, or logical data. In other words, a vector is a simple tool to store data. For example, you can store your daily gains and losses in the casinos.</p>
+<p>In R, you create a vector with the combine function c(). You place the vector elements separated by a comma between the parentheses. For example:</p>
+<pre class="r"><code>numeric_vector &lt;- c(1, 2, 3, 4, 5, 6)
+character_vector &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)</code></pre>
+<p>We can give a name to each value stored in a vector</p>
+<pre class="r"><code>names(numeric_vector) &lt;- c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;, &quot;six&quot;)
+numeric_vector</code></pre>
+<pre><code>##   one   two three  four  five   six 
+##     1     2     3     4     5     6</code></pre>
+<p>… and do math with them:</p>
+<pre class="r"><code>sum(numeric_vector)</code></pre>
+<pre><code>## [1] 21</code></pre>
+<p>We can make test a condition:</p>
+<p>the previous exercises you used selection_vector &lt;- poker_vector &gt; 0 to find the days on which you had a positive poker return. Now, you would like to know not only the days on which you won, but also how much you won on those days.</p>
+<pre class="r"><code>numbers_selection &lt;- numeric_vector%%2
+numbers_selection</code></pre>
+<pre><code>##   one   two three  four  five   six 
+##     1     0     1     0     1     0</code></pre>
+<p>… and select the desired elemnts</p>
+<pre class="r"><code>numbers_odd_selection &lt;-  numeric_vector[numbers_selection != 0]
+numbers_odd_selection</code></pre>
+<pre><code>##   one three  five 
+##     1     3     5</code></pre>
+</div>
+<div id="factor" class="section level1">
+<h1>Factor</h1>
+<p>The term factor refers to a statistical data type used to <em>store</em> <strong>categorical variables</strong>. The difference between a categorical variable and a continuous variable is that a categorical variable can belong to a limited number of categories. A continuous variable, on the other hand, can correspond to an infinite number of values.</p>
+<pre class="r"><code>animals_vector &lt;- c(&quot;Elephant&quot;, &quot;Giraffe&quot;, &quot;Donkey&quot;, &quot;Horse&quot;)
+class(animals_vector)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>factor_animals_vector &lt;- factor(animals_vector)
+class(factor_animals_vector)</code></pre>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<pre class="r"><code>factor_animals_vector</code></pre>
+<pre><code>## [1] Elephant Giraffe  Donkey   Horse   
+## Levels: Donkey Elephant Giraffe Horse</code></pre>
+<p>Unlike character, factors contain specific levels. These levels can be ordinal (depending on the type of the data):</p>
+<pre class="r"><code>temperature_vector &lt;- c(&quot;High&quot;, &quot;Low&quot;, &quot;High&quot;,&quot;Low&quot;, &quot;Medium&quot;)
+factor_temperature_vector &lt;- factor(temperature_vector, 
+                                    order = TRUE, 
+                                    levels = c(&quot;Low&quot;, &quot;Medium&quot;, &quot;High&quot;))
+factor_temperature_vector # notice the levels; compare it to animals_vector levels</code></pre>
+<pre><code>## [1] High   Low    High   Low    Medium
+## Levels: Low &lt; Medium &lt; High</code></pre>
+</div>
+<div id="matrix" class="section level1">
+<h1>Matrix</h1>
+<p>You can construct a matrix in R with the <strong>matrix()</strong> function. Consider the following example:</p>
+<pre class="r"><code>my_matrix &lt;- matrix(1:9, byrow = TRUE, nrow = 3) # for columns we can use byrow = F
+my_matrix</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+## [3,]    7    8    9</code></pre>
+<p>Smilar to vectors, you can add names for the rows and the columns of a matrix</p>
+<blockquote>
+<p>rownames(my_matrix) &lt;- row_names_vector<br />
+colnames(my_matrix) &lt;- col_names_vector</p>
+</blockquote>
+<p>Or within the code using <strong>dimnames = list(c(ROWS, COLUMNS))</strong>:</p>
+<pre class="r"><code>box_office &lt;- c(460.998, 314.4, 290.475, 247.900, 309.306, 165.8)
+star_wars_matrix &lt;- matrix(box_office, nrow = 3, byrow = TRUE,
+                           dimnames = list(c(&quot;A New Hope&quot;, &quot;The Empire Strikes Back&quot;, &quot;Return of the Jedi&quot;), 
+                                           c(&quot;US&quot;, &quot;non-US&quot;))) 
+star_wars_matrix</code></pre>
+<pre><code>##                              US non-US
+## A New Hope              460.998  314.4
+## The Empire Strikes Back 290.475  247.9
+## Return of the Jedi      309.306  165.8</code></pre>
+<div id="functions" class="section level3">
+<h3>Functions</h3>
+<ul>
+<li><strong>rbind()</strong>
+<ul>
+<li>combines two matrices by row</li>
+</ul></li>
+<li><strong>cbind()</strong>
+<ul>
+<li>combines two matrices by columb</li>
+</ul></li>
+<li><strong>rowSums and colSums </strong>
+<ul>
+<li>Sums the total row and column</li>
+</ul></li>
+</ul>
+<p>We can also do basic arithmatics with matrices:</p>
+<pre class="r"><code>my_matrix</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+## [3,]    7    8    9</code></pre>
+<pre class="r"><code>my_matrix*2</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    2    4    6
+## [2,]    8   10   12
+## [3,]   14   16   18</code></pre>
+<pre class="r"><code>my_matrix*c(1,2,3)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    8   10   12
+## [3,]   21   24   27</code></pre>
+<pre class="r"><code>my_matrix2 &lt;- matrix(4:12, byrow = T, nrow = 3)
+my_matrix2</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    4    5    6
+## [2,]    7    8    9
+## [3,]   10   11   12</code></pre>
+<pre class="r"><code>my_matrix*my_matrix2</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    4   10   18
+## [2,]   28   40   54
+## [3,]   70   88  108</code></pre>
+</div>
+</div>
+<div id="data-frame" class="section level1">
+<h1>Data frame</h1>
+<p>Matrices can only store elements that are the same type. Look at Star Wars matrix; we simply named each column, the titles are not stored and are not accessible as a character data.</p>
+<pre class="r"><code>star_wars_matrix</code></pre>
+<pre><code>##                              US non-US
+## A New Hope              460.998  314.4
+## The Empire Strikes Back 290.475  247.9
+## Return of the Jedi      309.306  165.8</code></pre>
+<p>A data frame has the variables of a data set as columns and the observations as rows where each variable can be of different data type.</p>
+<pre class="r"><code># Let&#39;s create a data frame of planets in our solar system
+name &lt;- c(&quot;Mercury&quot;, &quot;Venus&quot;, &quot;Earth&quot;, &quot;Mars&quot;, &quot;Jupiter&quot;, &quot;Saturn&quot;, &quot;Uranus&quot;, &quot;Neptune&quot;)
+type &lt;- c(&quot;Terrestrial planet&quot;, &quot;Terrestrial planet&quot;, &quot;Terrestrial planet&quot;, 
+          &quot;Terrestrial planet&quot;, &quot;Gas giant&quot;, &quot;Gas giant&quot;, &quot;Gas giant&quot;, &quot;Gas giant&quot;)
+diameter &lt;- c(0.382, 0.949, 1, 0.532, 11.209, 9.449, 4.007, 3.883)
+rotation &lt;- c(58.64, -243.02, 1, 1.03, 0.41, 0.43, -0.72, 0.67)
+rings &lt;- c(FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)
+
+# We can now create a dataframe from these variables
+planets_df &lt;- data.frame(name, type, diameter, rotation, rings)
+planets_df # notice how each column holds a different data type</code></pre>
+<pre><code>##      name               type diameter rotation rings
+## 1 Mercury Terrestrial planet    0.382    58.64 FALSE
+## 2   Venus Terrestrial planet    0.949  -243.02 FALSE
+## 3   Earth Terrestrial planet    1.000     1.00 FALSE
+## 4    Mars Terrestrial planet    0.532     1.03 FALSE
+## 5 Jupiter          Gas giant   11.209     0.41  TRUE
+## 6  Saturn          Gas giant    9.449     0.43  TRUE
+## 7  Uranus          Gas giant    4.007    -0.72  TRUE
+## 8 Neptune          Gas giant    3.883     0.67  TRUE</code></pre>
+<pre class="r"><code># We could also create the variable by:
+# Planets_df &lt;- data.frame(name = c(...), type = c(...) and so on for each variable with the observations as a vector)</code></pre>
+<div id="overviewing-a-data-frame" class="section level2">
+<h2>Overviewing a data frame</h2>
+<p>When you work with (extremely) large data sets and data frames, your first task as a data analyst is to develop a clear understanding of its structure and main elements. Therefore, it is often useful to show only a small part of the entire data set. We can use functions such as: <strong>head()</strong> ; <strong>taile()</strong> or <strong>str()</strong> to have a look at the data frame.</p>
+<blockquote>
+<p>Applying the str() function is the great way of getting insight into the data set before any real analysis. Usually done as the first step.</p>
+</blockquote>
+<pre class="r"><code>head(planets_df)</code></pre>
+<pre><code>##      name               type diameter rotation rings
+## 1 Mercury Terrestrial planet    0.382    58.64 FALSE
+## 2   Venus Terrestrial planet    0.949  -243.02 FALSE
+## 3   Earth Terrestrial planet    1.000     1.00 FALSE
+## 4    Mars Terrestrial planet    0.532     1.03 FALSE
+## 5 Jupiter          Gas giant   11.209     0.41  TRUE
+## 6  Saturn          Gas giant    9.449     0.43  TRUE</code></pre>
+<pre class="r"><code>tail(planets_df)</code></pre>
+<pre><code>##      name               type diameter rotation rings
+## 3   Earth Terrestrial planet    1.000     1.00 FALSE
+## 4    Mars Terrestrial planet    0.532     1.03 FALSE
+## 5 Jupiter          Gas giant   11.209     0.41  TRUE
+## 6  Saturn          Gas giant    9.449     0.43  TRUE
+## 7  Uranus          Gas giant    4.007    -0.72  TRUE
+## 8 Neptune          Gas giant    3.883     0.67  TRUE</code></pre>
+<pre class="r"><code>str(planets_df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  5 variables:
+##  $ name    : Factor w/ 8 levels &quot;Earth&quot;,&quot;Jupiter&quot;,..: 4 8 1 3 2 6 7 5
+##  $ type    : Factor w/ 2 levels &quot;Gas giant&quot;,&quot;Terrestrial planet&quot;: 2 2 2 2 1 1 1 1
+##  $ diameter: num  0.382 0.949 1 0.532 11.209 ...
+##  $ rotation: num  58.64 -243.02 1 1.03 0.41 ...
+##  $ rings   : logi  FALSE FALSE FALSE FALSE TRUE TRUE ...</code></pre>
+</div>
+<div id="selecting-data" class="section level2">
+<h2>Selecting data</h2>
+<p>Similar to vectors and matrices, you select elements from a data frame with the help of square brackets [ ]. By using a comma, you can indicate what to select from the rows and the columns respectively. For example:</p>
+<ul>
+<li>my_df[1,2] selects the value at the first row and second column in my_df.</li>
+<li>my_df[1:3,2:4] selects rows 1, 2, 3 and columns 2, 3, 4 in my_df.</li>
+<li>my_df[1, ] selects all elements of the first row.</li>
+</ul>
+</div>
+<div id="ordering-data" class="section level2">
+<h2>Ordering data</h2>
+<p>Making and creating rankings is one of mankind’s favorite affairs. In data analysis you can sort your data according to a certain variable in the data set. In R, this is done with the help of the function <strong>order()</strong>.</p>
+<p>order() is a function that gives you the ranked position of each element when it is applied on a variable, such as a vector for example:</p>
+<pre class="r"><code>a &lt;- c(100, 10, 1000)
+order(a) # will give us the order</code></pre>
+<pre><code>## [1] 2 1 3</code></pre>
+<pre class="r"><code># We can select using brackets [] to arrange our data too.
+a[order(a)]</code></pre>
+<pre><code>## [1]   10  100 1000</code></pre>
+<p>Let’s go back to our planets data frame. Notice we can’t order a data frame without specifying which column to be ordered first</p>
+<blockquote>
+<p>planets_df[order(planets_df)]<br />
+&gt; <span style="color:darkred"> Error in <code>[.data.frame</code>(planets_df, order(planets_df)) : undefined columns selected</span></p>
+</blockquote>
+<pre class="r"><code>planets_df[order(planets_df$name),] # remember [row, column]. We can&#39;t rearrange the columns!</code></pre>
+<pre><code>##      name               type diameter rotation rings
+## 3   Earth Terrestrial planet    1.000     1.00 FALSE
+## 5 Jupiter          Gas giant   11.209     0.41  TRUE
+## 4    Mars Terrestrial planet    0.532     1.03 FALSE
+## 1 Mercury Terrestrial planet    0.382    58.64 FALSE
+## 8 Neptune          Gas giant    3.883     0.67  TRUE
+## 6  Saturn          Gas giant    9.449     0.43  TRUE
+## 7  Uranus          Gas giant    4.007    -0.72  TRUE
+## 2   Venus Terrestrial planet    0.949  -243.02 FALSE</code></pre>
+</div>
+</div>
+<div id="list" class="section level1">
+<h1>List</h1>
+<p>While a data frame allows to collate a variety of <em>variables</em> with different <em>data type</em>; lists in R allow gathering a variety of <em>objects</em> under one name (that is, the name of the list) in an ordered way. These objects can be matrices, vectors, data frames, even other lists, etc. It is not even required that these objects are related to each other in any way.</p>
+<pre class="r"><code>mov &lt;- &quot;The Shining&quot;
+act &lt;-c(&quot;Jack Nicholson&quot;,  &quot;Shelley Duvall&quot;, &quot;Danny Lloyd&quot;,  &quot;Scatman Crothers&quot;, &quot;Barry Nelson&quot;)
+year = 1980
+rev &lt;- data.frame(score = c(4.5, 4.0, 5.0), comments = c(&quot;Best Horror Film I Have Ever Seen&quot;, &quot;A truly brilliant and scary film from Stanley Kubrick&quot;, &quot;A masterpiece of psychological horror&quot;))
+
+shining_list = list( mov,  act,  year, rev)
+names(shining_list) = c(&quot;Movie&quot;, &quot;Actors&quot;, &quot;Year&quot;, &quot;Reviews&quot;)
+shining_list</code></pre>
+<pre><code>## $Movie
+## [1] &quot;The Shining&quot;
+## 
+## $Actors
+## [1] &quot;Jack Nicholson&quot;   &quot;Shelley Duvall&quot;   &quot;Danny Lloyd&quot;     
+## [4] &quot;Scatman Crothers&quot; &quot;Barry Nelson&quot;    
+## 
+## $Year
+## [1] 1980
+## 
+## $Reviews
+##   score                                              comments
+## 1   4.5                     Best Horror Film I Have Ever Seen
+## 2   4.0 A truly brilliant and scary film from Stanley Kubrick
+## 3   5.0                 A masterpiece of psychological horror</code></pre>
+<p>One way to select a component is using the numbered position of that component. You can also refer to the names of the components, with [[ ]] or with the $ sign. Both will select the data frame representing the reviews:</p>
+<blockquote>
+<p><strong>Remember</strong>: to select elements from vectors, you use single square brackets: [ ].</p>
+</blockquote>
+<pre class="r"><code>shining_list[[1]]</code></pre>
+<pre><code>## [1] &quot;The Shining&quot;</code></pre>
+<pre class="r"><code>shining_list[[&quot;Reviews&quot;]]</code></pre>
+<pre><code>##   score                                              comments
+## 1   4.5                     Best Horror Film I Have Ever Seen
+## 2   4.0 A truly brilliant and scary film from Stanley Kubrick
+## 3   5.0                 A masterpiece of psychological horror</code></pre>
+<pre class="r"><code>shining_list$Reviews</code></pre>
+<pre><code>##   score                                              comments
+## 1   4.5                     Best Horror Film I Have Ever Seen
+## 2   4.0 A truly brilliant and scary film from Stanley Kubrick
+## 3   5.0                 A masterpiece of psychological horror</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

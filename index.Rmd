@@ -1,0 +1,7 @@
+---
+title: "Learn R and Statistics"
+---
+
+To learn R navigate the site; 
+
+To learn statistics, please visit [my notebook](https://1drv.ms/f/s!Avihy3TtBtwqnQSRI6hMUz7JtNXZ) - which gets updated with new content regularly.

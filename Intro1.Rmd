@@ -1,0 +1,257 @@
+---
+title: "Fundementals of R language"
+output: html_document
+---
+
+This course will cover the basic R functions.
+
+# Arithmetic with R
+In its most basic form, R can be used as a simple calculator. Consider the following arithmetic operators:
+
+* Addition: +
+* Subtraction: -
+* Multiplication: *
+* Division: /
+* Exponentiation: ^ *(shift + 6)*
+* Modulo: %%
+
+
+
+### Exponentiation and Modulo
+The **exponentiation operator** raises the number to its left to the power of the number to its right: for example $3^2 = 9$ 
+
+The **modulo** returns the remainder of the division of the number to the left by the number on its right, for example 5 modulo 3 or 5 %% 3 is 2.
+With this knowledge, follow the instructions below to complete the exercise.
+
+#### Examples:
+
+```{r}
+2 * 8
+9 - 2
+17 * 23
+14 / 2 
+3^2
+8%%2
+8%%3
+
+```
+
+# Basic data types in R
+R works with numerous data types. Some of the most basic types to get started are:
+
+* Decimals values like 4.5 are called **numerics**.
+* Natural numbers like 4 are called **integers**.
+* Boolean values (TRUE or FALSE) are called **logical**.
+* Text (or string) values are called **characters**.
+
+# Variable
+A basic concept in (statistical) programming is called a variable.
+
+A **variable** allows you to *store* a value (e.g. 4) or an object (e.g. a function description) in R. You can then later use this variable's name to easily access the value or the object that is stored within this variable.
+
+```{r}
+my_variable = 4 # storing the value 4
+my_variable
+```
+
+# Vector
+
+Vectors are one-dimension arrays that can hold numeric data, character data, or logical data. In other words, a vector is a simple tool to store data. For example, you can store your daily gains and losses in the casinos.
+
+In R, you create a vector with the combine function c(). You place the vector elements separated by a comma between the parentheses. For example:
+
+
+```{r}
+numeric_vector <- c(1, 2, 3, 4, 5, 6)
+character_vector <- c("a", "b", "c")
+```
+
+We can give a name to each value stored in a vector
+```{r}
+names(numeric_vector) <- c("one", "two", "three", "four", "five", "six")
+numeric_vector
+
+```
+
+... and do math with them:
+```{r}
+sum(numeric_vector)
+```
+ 
+We can make test a condition:
+
+the previous exercises you used selection_vector <- poker_vector > 0 to find the days on which you had a positive poker return. Now, you would like to know not only the days on which you won, but also how much you won on those days.
+```{r}
+numbers_selection <- numeric_vector%%2
+numbers_selection
+```
+
+... and select the desired elemnts
+```{r}
+numbers_odd_selection <-  numeric_vector[numbers_selection != 0]
+numbers_odd_selection
+```
+
+# Factor
+The term factor refers to a statistical data type used to *store* **categorical variables**. The difference between a categorical variable and a continuous variable is that a categorical variable can belong to a limited number of categories. A continuous variable, on the other hand, can correspond to an infinite number of values.
+
+```{r}
+animals_vector <- c("Elephant", "Giraffe", "Donkey", "Horse")
+class(animals_vector)
+
+factor_animals_vector <- factor(animals_vector)
+class(factor_animals_vector)
+factor_animals_vector
+```
+
+Unlike character, factors contain specific levels. These levels can be ordinal (depending on the type of the data):
+```{r}
+temperature_vector <- c("High", "Low", "High","Low", "Medium")
+factor_temperature_vector <- factor(temperature_vector, 
+                                    order = TRUE, 
+                                    levels = c("Low", "Medium", "High"))
+factor_temperature_vector # notice the levels; compare it to animals_vector levels
+```
+
+# Matrix
+
+You can construct a matrix in R with the **matrix()** function. Consider the following example:
+
+```{r}
+my_matrix <- matrix(1:9, byrow = TRUE, nrow = 3) # for columns we can use byrow = F
+my_matrix
+```
+
+Smilar to vectors, you can add names for the rows and the columns of a matrix
+
+
+> rownames(my_matrix) <- row_names_vector  
+> colnames(my_matrix) <- col_names_vector
+
+Or within the code using **dimnames = list(c(ROWS, COLUMNS))**:
+```{r}
+box_office <- c(460.998, 314.4, 290.475, 247.900, 309.306, 165.8)
+star_wars_matrix <- matrix(box_office, nrow = 3, byrow = TRUE,
+                           dimnames = list(c("A New Hope", "The Empire Strikes Back", "Return of the Jedi"), 
+                                           c("US", "non-US"))) 
+star_wars_matrix
+
+```
+
+### Functions
+* **rbind()** 
+    + combines two matrices by row
+* **cbind()** 
+    + combines two matrices by columb
+* **rowSums and colSums **
+    + Sums the total row and column
+
+We can also do basic arithmatics with matrices:
+```{r}
+my_matrix
+my_matrix*2
+my_matrix*c(1,2,3)
+my_matrix2 <- matrix(4:12, byrow = T, nrow = 3)
+my_matrix2
+my_matrix*my_matrix2
+ 
+```
+
+# Data frame
+
+Matrices can only store elements that are the same type. Look at Star Wars matrix; we simply named each column, the titles are not stored and are not accessible as a character data. 
+```{r}
+star_wars_matrix
+```
+
+A data frame has the variables of a data set as columns and the observations as rows where each variable can be of different data type.
+
+
+```{r}
+# Let's create a data frame of planets in our solar system
+name <- c("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
+type <- c("Terrestrial planet", "Terrestrial planet", "Terrestrial planet", 
+          "Terrestrial planet", "Gas giant", "Gas giant", "Gas giant", "Gas giant")
+diameter <- c(0.382, 0.949, 1, 0.532, 11.209, 9.449, 4.007, 3.883)
+rotation <- c(58.64, -243.02, 1, 1.03, 0.41, 0.43, -0.72, 0.67)
+rings <- c(FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)
+
+# We can now create a dataframe from these variables
+planets_df <- data.frame(name, type, diameter, rotation, rings)
+planets_df # notice how each column holds a different data type
+# We could also create the variable by:
+# Planets_df <- data.frame(name = c(...), type = c(...) and so on for each variable with the observations as a vector)
+```
+
+## Overviewing a data frame
+
+When you work with (extremely) large data sets and data frames, your first task as a data analyst is to develop a clear understanding of its structure and main elements. Therefore, it is often useful to show only a small part of the entire data set. We can use functions such as: **head()** ; **taile()** or **str()** to have a look at the data frame.
+
+> Applying the str() function is the great way of getting insight into the data set before any real analysis. Usually done as the first step.
+
+```{r}
+head(planets_df)
+tail(planets_df)
+str(planets_df)
+
+```
+
+## Selecting data
+
+Similar to vectors and matrices, you select elements from a data frame with the help of square brackets [ ]. By using a comma, you can indicate what to select from the rows and the columns respectively. For example:
+
+* my_df[1,2] selects the value at the first row and second column in my_df.
+* my_df[1:3,2:4] selects rows 1, 2, 3 and columns 2, 3, 4 in my_df.
+* my_df[1, ] selects all elements of the first row.
+
+## Ordering data
+
+Making and creating rankings is one of mankind's favorite affairs. In data analysis you can sort your data according to a certain variable in the data set. In R, this is done with the help of the function **order()**.
+
+order() is a function that gives you the ranked position of each element when it is applied on a variable, such as a vector for example:
+
+```{r}
+a <- c(100, 10, 1000)
+order(a) # will give us the order
+
+# We can select using brackets [] to arrange our data too.
+a[order(a)]
+
+```
+
+Let's go back to our planets data frame. Notice we can't order a data frame without specifying which column to be ordered first
+
+> planets_df[order(planets_df)]  
+> >  <span style="color:darkred"> Error in `[.data.frame`(planets_df, order(planets_df)) : undefined columns selected</span>
+
+```{r}
+planets_df[order(planets_df$name),] # remember [row, column]. We can't rearrange the columns!
+ 
+```
+
+# List
+
+While a data frame allows to collate a variety of *variables* with different *data type*; lists in R allow gathering a variety of *objects* under one name (that is, the name of the list) in an ordered way. These objects can be matrices, vectors, data frames, even other lists, etc. It is not even required that these objects are related to each other in any way.
+
+```{r}
+mov <- "The Shining"
+act <-c("Jack Nicholson",  "Shelley Duvall", "Danny Lloyd",  "Scatman Crothers", "Barry Nelson")
+year = 1980
+rev <- data.frame(score = c(4.5, 4.0, 5.0), comments = c("Best Horror Film I Have Ever Seen", "A truly brilliant and scary film from Stanley Kubrick", "A masterpiece of psychological horror"))
+
+shining_list = list( mov,  act,  year, rev)
+names(shining_list) = c("Movie", "Actors", "Year", "Reviews")
+shining_list
+```
+                
+One way to select a component is using the numbered position of that component. You can also refer to the names of the components, with [[ ]] or with the $ sign. Both will select the data frame representing the reviews:
+
+ > **Remember**: to select elements from vectors, you use single square brackets: [ ].
+
+```{r}
+shining_list[[1]]
+shining_list[["Reviews"]]
+shining_list$Reviews
+```
+
+
